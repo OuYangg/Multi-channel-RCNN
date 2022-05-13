@@ -24,7 +24,7 @@ if __name__ == '__main__':
     # load training networks
     # In[1]
     BA_1000_4 = Utils.load_graph('./Networks/training/Train_1000_4.txt')
-    BA_1000_4_sir = pd.read_csv('.Train_1000_4/BA_1000_4_SIR.csv')
+    BA_1000_4_sir = pd.read_csv('./SIR results/Train_1000_4/BA_1000_4_SIR.csv')
     BA_1000_4_label = dict(zip(np.array(BA_1000_4_sir['Node'],dtype=str),BA_1000_4_sir['SIR']))
     BA_1000_10 = Utils.load_graph('./Networks/training/BA_1000_10.txt')
     BA_1000_20 = Utils.load_graph('./Networks/training/BA_1000_20.txt')
@@ -40,13 +40,13 @@ if __name__ == '__main__':
     # load real-world networks
     PowerGrid = Utils.load_graph('./Networks/real/powergrid.txt')
     GrQ = Utils.load_graph('./Networks/real/CA-GrQc.txt')
-    Facebook = Utils.load_graph('/Networks/real/facebook_combined.txt')
+    Facebook = Utils.load_graph('./Networks/real/facebook_combined.txt')
     Ham = Utils.load_graph('./Networks/real/Peh_edge.txt')
-    Hep = Utils.load_graph('/Networks/real/CA-HepTh.txt')
-    LastFM = Utils.load_graph('/Networks/real/LastFM.txt')
-    Figeys = Utils.load_graph('/Networks/real/figeys.txt')
-    Vidal = Utils.load_graph('/Networks/real/vidal.txt')
-    Sex = Utils.load_graph('/Networks/real/Sex.txt')
+    Hep = Utils.load_graph('./Networks/real/CA-HepTh.txt')
+    LastFM = Utils.load_graph('./Networks/real/LastFM.txt')
+    Figeys = Utils.load_graph('./Networks/real/figeys.txt')
+    Vidal = Utils.load_graph('./Networks/real/vidal.txt')
+    Sex = Utils.load_graph('./Networks/real/Sex.txt')
 
     # remove selfloops of real-world networks
     Figeys.remove_edges_from(nx.selfloop_edges(Figeys))
@@ -73,7 +73,7 @@ if __name__ == '__main__':
     GrQ_SIR = Utils.load_sir_list('./SIR results/GrQ/GrQ_')
     Hep_SIR = Utils.load_sir_list('./SIR results/Hep/Hep_')
     LastFM_SIR = Utils.load_sir_list('./SIR results/LastFM/LastFM_')
-    Figeys_SIR = Utils.load_sir_list('./SIR results/Figeys/Figeys')
+    Figeys_SIR = Utils.load_sir_list('./SIR results/Figeys/Figeys_')
     Vidal_SIR = Utils.load_sir_list('./SIR results/Vidal/Vidal_')
     PowerGrid_SIR = Utils.load_sir_list('./SIR results/PowerGrid/PowerGrid_')
     Sex_SIR = Utils.load_sir_list('./SIR results/Sex/Sex_')
