@@ -1,5 +1,5 @@
 # Multi-channel-RCNN
-The repo stores the code and data of multi-channel RCNN (M-RCNN) for interested researchers to reproduce the results presented in our paper Identification of spreading influence nodes via multi-level structural attributes based on the graph convolutional network. https://doi.org/10.1016/j.eswa.2022.117515 
+The repo stores the code and data of multi-channel RCNN (M-RCNN) for interested researchers to reproduce the results presented in our paper -> Identification of spreading influence nodes via multi-level structural attributes based on the graph convolutional network. https://doi.org/10.1016/j.eswa.2022.117515 
 
 The algorithm flowchart of M-RCNN is as follow:
 
