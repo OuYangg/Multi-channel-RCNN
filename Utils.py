@@ -244,6 +244,31 @@ def Get_DataLoader1(data,label,batch_size,L):
     Loader = DataLoader(dataset=deal_data,batch_size=batch_size,shuffle=True)
     return Loader
 
+# 双通道DataLoader
+def Get_DataLoader2(data,label,batch_size,L):
+    """创建三通道DataLoader
+    Parameters:
+        data:数据集都为字典（键为节点，值为矩阵）
+        label:数据集都为字典（键为节点，值为矩阵）
+        batch_size:每次训练多少个
+    return:
+        Loader:DataLoader。
+    
+    """
+    # 首先把所有numpy转为torch
+    torch_set = torch.empty(len(data),2,L,L)
+    for inx,matrix in enumerate(data.values()):
+        torch_set[inx,:,:,:] = matrix
+
+    sir_torch = torch.empty(len(label),1)
+    for inx,v in enumerate(label.values()):
+        sir_torch[inx,:] = v
+
+    # 创建DataLoader
+    deal_data = TensorDataset(torch_set,sir_torch)
+    Loader = DataLoader(dataset=deal_data,batch_size=batch_size,shuffle=True)
+    return Loader
+
 def train_model(loader,model,num_epochs,lr,L,path=None):
     """训练模型
     Parameters:
