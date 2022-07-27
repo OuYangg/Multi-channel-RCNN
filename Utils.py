@@ -20,7 +20,6 @@ import random
 from torch.utils.data import DataLoader,TensorDataset
 from tqdm import tqdm
 sns.set_style('ticks')
-os.chdir('D:/研究生文献/文献复现工作/RCNN整理后代码+源码+数据/')
 
 
 def generate_subgraph(G,node_list):
@@ -264,16 +263,18 @@ def train_model(loader,model,num_epochs,lr,L,path=None):
         for data,targets in loader:
             data = data.to(device)
             targets = targets.float().to(device)
+            model = model.to(device)
             pred = model(data)
             loss = criterion(pred,targets)
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
         if epoch % 10 == 0:
-            loss_list.append(loss.data)
+            loss_list.append(np.float64(loss.data))
         if epoch % 100 == 0:
             print("Loss:{}".format(loss.data))
     # 绘制loss的变化
+    loss_list = 
     plt.figure(figsize=(8,6),dpi=100)
     plt.xlabel('epochs',fontsize=14,fontweight='bold')
     plt.ylabel('loss',fontsize=14,fontweight='bold')
