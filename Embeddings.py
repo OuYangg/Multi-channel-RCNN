@@ -194,7 +194,7 @@ def main2(G,L,community,method):
     node_list = list(G.nodes()) # 获得网络中的所有节点
     #对每个节点按照规则提取L-1个邻居节点
     k_shell = dict(nx.core_number(G))
-    nd = neighbor_degree(G)
+    nd = Utils.neighbor_degree(G)
     for node in node_list:
         subset = [node] # 目标节点+固定数量的邻居节点
         one_order = list(G.adj[node]) #先看一阶邻居节点
