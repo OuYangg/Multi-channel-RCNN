@@ -274,7 +274,6 @@ def train_model(loader,model,num_epochs,lr,L,path=None):
         if epoch % 100 == 0:
             print("Loss:{}".format(loss.data))
     # 绘制loss的变化
-    loss_list = 
     plt.figure(figsize=(8,6),dpi=100)
     plt.xlabel('epochs',fontsize=14,fontweight='bold')
     plt.ylabel('loss',fontsize=14,fontweight='bold')
