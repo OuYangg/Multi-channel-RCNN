@@ -24,7 +24,7 @@ if __name__ == '__main__':
     # load training networks
     # In[1]
     BA_1000_4 = Utils.load_graph('./Networks/training/Train_1000_4.txt')
-    BA_1000_4_sir = pd.read_csv('./SIR results/Train_1000_4/BA_1000_4_SIR.csv')
+    BA_1000_4_sir = pd.read_csv('./SIR results/Train_1000_4/BA_1000_4.csv')
     BA_1000_4_label = dict(zip(np.array(BA_1000_4_sir['Node'],dtype=str),BA_1000_4_sir['SIR']))
     BA_1000_10 = Utils.load_graph('./Networks/training/BA_1000_10.txt')
     BA_1000_20 = Utils.load_graph('./Networks/training/BA_1000_20.txt')
