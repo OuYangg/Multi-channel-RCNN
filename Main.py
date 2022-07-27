@@ -14,6 +14,9 @@ import Models
 import Utils
 import Test
 import Embeddings
+import warnings
+
+warnings.filterwarnings('ignore')
 sns.set_style('ticks')
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
 
@@ -126,8 +129,8 @@ if __name__ == '__main__':
     # generate DataLoader
     rcnn_loader = Utils.Get_DataLoader(BA_1000_rcnn,BA_1000_4_label,batch_size,L1)
     mrcnn_loader = Utils.Get_DataLoader1(BA_1000_mrcnn,BA_1000_4_label,batch_size,L2)
-    mrcnn_loader_com = Utils.Get_DataLoader1(BA_1000_mrcnn_com,BA_1000_4_label,batch_size,L2)
-    mrcnn_loader_shell = Utils.Get_DataLoader1(BA_1000_mrcnn_shell,BA_1000_4_label,batch_size,L2)
+    mrcnn_loader_com = Utils.Get_DataLoader2(BA_1000_mrcnn_com,BA_1000_4_label,batch_size,L2)
+    mrcnn_loader_shell = Utils.Get_DataLoader2(BA_1000_mrcnn_shell,BA_1000_4_label,batch_size,L2)
     # initializing models
     rcnn= Models.CNN(L1)
     mrcnn = Models.CNN1(L2)
