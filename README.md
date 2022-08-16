@@ -6,3 +6,12 @@ Ou Y, Guo Q, Xing J L, Liu J G, Identification of spreading influence nodes via 
 The algorithm flowchart of M-RCNN is as follow:
 
 ![image](https://user-images.githubusercontent.com/67104283/168262812-e17e9a9b-d097-42d8-b590-85c5215f83e3.png)
+
+**Notice:**
+  The package `community` is required to run our code. If you have this problem, you can run:
+  
+  `pip uninstall community`
+  
+  `pip install python-louvain `
+  
+  `import community.community_louvain as community`
