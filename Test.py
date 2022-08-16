@@ -93,7 +93,7 @@ def compare_tau(G,L1,L2,sir_list,community,RCNN,MRCNN):
     ks = dict(nx.core_number(G))
     bc = dict(nx.betweenness_centrality(G))
     nd = Utils.neighbor_degree(G)
-    vc = Utils.VC(G,community)
+    vc = Utils.Vc(G,community)
     nodes = list(G.nodes())
     rcnn_data = to_torch1(Embeddings.main(G,L1),L1)
     mrcnn_data = to_torch2(Embeddings.main1(G,L2,community),L2)
