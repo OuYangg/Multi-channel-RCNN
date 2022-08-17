@@ -49,7 +49,7 @@ if __name__ == '__main__':
     LastFM = Utils.load_graph('./Networks/real/LastFM.txt')
     Figeys = Utils.load_graph('./Networks/real/figeys.txt')
     Vidal = Utils.load_graph('./Networks/real/vidal.txt')
-    Sex = Utils.load_graph('./Networks/real/Sex.txt')
+    Sex = Utils.load_graph('./Networks/real/sex.txt')
 
     # remove selfloops of real-world networks
     Figeys.remove_edges_from(nx.selfloop_edges(Figeys))
