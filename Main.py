@@ -77,8 +77,8 @@ if __name__ == '__main__':
     Hep_SIR = Utils.load_sir_list('./SIR results/Hep/Hep_')
     LastFM_SIR = Utils.load_sir_list('./SIR results/LastFM/LastFM_')
     Figeys_SIR = Utils.load_sir_list('./SIR results/Figeys/Figeys_')
-    Vidal_SIR = Utils.load_sir_list('./SIR results/Vidal/Vidal_')
-    PowerGrid_SIR = Utils.load_sir_list('./SIR results/PowerGrid/PowerGrid_')
+    Vidal_SIR = Utils.load_sir_list('./SIR results/vidal/vidal_')
+    PowerGrid_SIR = Utils.load_sir_list('./SIR results/powergrid/powergrid_')
     Sex_SIR = Utils.load_sir_list('./SIR results/Sex/Sex_')
     
     # community division
