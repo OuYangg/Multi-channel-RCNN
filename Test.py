@@ -89,53 +89,60 @@ def compare_tau(G,L1,L2,sir_list,community,RCNN,MRCNN):
     return:
         tau_list:在不同beta情况下的tau值
     """
-    dc = dict(nx.degree_centrality(G))
-    ks = dict(nx.core_number(G))
-    bc = dict(nx.betweenness_centrality(G))
-    nd = Utils.neighbor_degree(G)
-    vc = Utils.Vc(G,community)
-    nodes = list(G.nodes())
-    rcnn_data = to_torch1(Embeddings.main(G,L1),L1)
-    mrcnn_data = to_torch2(Embeddings.main1(G,L2,community),L2)
-    rcnn_pred = [i for i,j in sorted(dict(zip(nodes,RCNN(rcnn_data))).items(),key=lambda x:x[1],reverse=True)] # 获得RCNN预测的节点重要性，降序排序
-    rcnn_rank = np.array(nodesRank(rcnn_pred),dtype=float)
-    
-    mrcnn_pred = [i for i,j in sorted(dict(zip(nodes,MRCNN(mrcnn_data))).items(),key=lambda x:x[1],reverse=True)] # 获得RCNN预测的节点重要性，降序排序
-    mrcnn_rank = np.array(nodesRank(mrcnn_pred),dtype=float)
-    
-    dc_rank = np.array(nodesRank([i for i,j in sorted(dc.items(),key=lambda x:x[1],reverse=True)]),dtype=float)
-    ks_rank = np.array(nodesRank([i for i,j in sorted(ks.items(),key=lambda x:x[1],reverse=True)]),dtype=float)
-    bc_rank = np.array(nodesRank([i for i,j in sorted(bc.items(),key=lambda x:x[1],reverse=True)]),dtype=float)
-    nd_rank = np.array(nodesRank([i for i,j in sorted(nd.items(),key=lambda x:x[1],reverse=True)]),dtype=float)
-    vc_rank = np.array(nodesRank([i for i,j in sorted(vc.items(),key=lambda x:x[1],reverse=True)]),dtype=float)
-    
-    RCNN_tau_list = []
-    MRCNN_tau_list = []
-    dc_tau_list = []
-    ks_tau_list = []
-    nd_tau_list = []
-    bc_tau_list = []
-    vc_tau_list = []
-    
-    for sir in sir_list:
-        sir_sort = [i for i,j in sorted(sir.items(),key=lambda x:x[1],reverse=True)]
-        sir_rank = np.array(nodesRank(sir_sort),dtype=float)
-        tau1,_ = stats.kendalltau(rcnn_rank,sir_rank)
-        tau2,_ = stats.kendalltau(mrcnn_rank,sir_rank)
-        tau3,_ = stats.kendalltau(dc_rank,sir_rank)
-        tau4,_ = stats.kendalltau(ks_rank,sir_rank)
-        tau5,_ = stats.kendalltau(nd_rank,sir_rank)
-        tau6,_ = stats.kendalltau(bc_rank,sir_rank)
-        tau7,_ = stats.kendalltau(vc_rank,sir_rank)
+    with torch.no_grad():
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        RCNN = RCNN.to(device)
+        MRCNN =MRCNN.to(device)
+
+        dc = dict(nx.degree_centrality(G))
+        ks = dict(nx.core_number(G))
+        bc = dict(nx.betweenness_centrality(G))
+        nd = Utils.neighbor_degree(G)
+        vc = Utils.Vc(G,community)
+        nodes = list(G.nodes())
+        rcnn_data = to_torch1(Embeddings.main(G,L1),L1).to(device)
+        mrcnn_data = to_torch2(Embeddings.main1(G,L2,community),L2).to(device)
         
-        RCNN_tau_list.append(tau1)
-        MRCNN_tau_list.append(tau2)
-        dc_tau_list.append(tau3)
-        ks_tau_list.append(tau4)
-        nd_tau_list.append(tau5)
-        bc_tau_list.append(tau6)
-        vc_tau_list.append(tau7)
-    return RCNN_tau_list,MRCNN_tau_list,dc_tau_list,ks_tau_list,nd_tau_list,bc_tau_list,vc_tau_list
+        
+        rcnn_pred = [i for i,j in sorted(dict(zip(nodes,RCNN(rcnn_data).to('cpu'))).items(),key=lambda x:x[1],reverse=True)] # 获得RCNN预测的节点重要性，降序排序
+        rcnn_rank = np.array(nodesRank(rcnn_pred),dtype=float)
+
+        mrcnn_pred = [i for i,j in sorted(dict(zip(nodes,MRCNN(mrcnn_data).to('cpu'))).items(),key=lambda x:x[1],reverse=True)] # 获得RCNN预测的节点重要性，降序排序
+        mrcnn_rank = np.array(nodesRank(mrcnn_pred),dtype=float)
+
+        dc_rank = np.array(nodesRank([i for i,j in sorted(dc.items(),key=lambda x:x[1],reverse=True)]),dtype=float)
+        ks_rank = np.array(nodesRank([i for i,j in sorted(ks.items(),key=lambda x:x[1],reverse=True)]),dtype=float)
+        bc_rank = np.array(nodesRank([i for i,j in sorted(bc.items(),key=lambda x:x[1],reverse=True)]),dtype=float)
+        nd_rank = np.array(nodesRank([i for i,j in sorted(nd.items(),key=lambda x:x[1],reverse=True)]),dtype=float)
+        vc_rank = np.array(nodesRank([i for i,j in sorted(vc.items(),key=lambda x:x[1],reverse=True)]),dtype=float)
+
+        RCNN_tau_list = []
+        MRCNN_tau_list = []
+        dc_tau_list = []
+        ks_tau_list = []
+        nd_tau_list = []
+        bc_tau_list = []
+        vc_tau_list = []
+
+        for sir in sir_list:
+            sir_sort = [i for i,j in sorted(sir.items(),key=lambda x:x[1],reverse=True)]
+            sir_rank = np.array(nodesRank(sir_sort),dtype=float)
+            tau1,_ = stats.kendalltau(rcnn_rank,sir_rank)
+            tau2,_ = stats.kendalltau(mrcnn_rank,sir_rank)
+            tau3,_ = stats.kendalltau(dc_rank,sir_rank)
+            tau4,_ = stats.kendalltau(ks_rank,sir_rank)
+            tau5,_ = stats.kendalltau(nd_rank,sir_rank)
+            tau6,_ = stats.kendalltau(bc_rank,sir_rank)
+            tau7,_ = stats.kendalltau(vc_rank,sir_rank)
+
+            RCNN_tau_list.append(tau1)
+            MRCNN_tau_list.append(tau2)
+            dc_tau_list.append(tau3)
+            ks_tau_list.append(tau4)
+            nd_tau_list.append(tau5)
+            bc_tau_list.append(tau6)
+            vc_tau_list.append(tau7)
+        return RCNN_tau_list,MRCNN_tau_list,dc_tau_list,ks_tau_list,nd_tau_list,bc_tau_list,vc_tau_list
 
 def compare_Train_Test_tau(G,community,L_list,sir,model_list,p=0.1):
     """使用肯德尔相关系数对比不同方法
