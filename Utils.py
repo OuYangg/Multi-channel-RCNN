@@ -13,7 +13,7 @@ import torch.optim as optim
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-import community
+import community.community_louvain as community
 import Test
 import Embeddings
 import random
