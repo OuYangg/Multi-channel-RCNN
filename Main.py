@@ -240,7 +240,7 @@ if __name__ == '__main__':
     plt.plot(a_list,GrQ_ks_tau,marker='>',markersize=10,c='g',label='K-core')
     plt.plot(a_list,GrQ_nd_tau,marker='p',markersize=10,c='black',label='ND')
     plt.plot(a_list,GrQ_bc_tau,marker='h',markersize=10,c='y',label='BC')
-    plt.plot(a_list,GrQC_vc_tau,marker='H',markersize=10,c='orange',label='Vc')
+    plt.plot(a_list,GrQ_vc_tau,marker='H',markersize=10,c='orange',label='Vc')
     plt.plot(a_list,GrQ_MRCNN_tau,marker='s',markersize=10,c='r',label='M-RCNN')
     plt.title('GrQC',fontsize=20,fontweight='bold')
     plt.ylabel(r'$\tau$',fontsize=24,fontweight='bold')
