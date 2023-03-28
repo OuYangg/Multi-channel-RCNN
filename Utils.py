@@ -317,9 +317,9 @@ def compare_L(G,label,community,L_list,batch_size=32):
     models = []
     for L in L_list:
         mrcnn_data= Embeddings.main1(G,L,community)
-        mrcnn_loader = Utils.Get_DataLoader1(mrcnn_data,label,batch_size,L)
+        mrcnn_loader = Get_DataLoader1(mrcnn_data,label,batch_size,L)
         mrcnn = Models.CNN1(L)
-        MRCNN,MRCNN_loss = Utils.train_model(mrcnn_loader,mrcnn,500,0.001,L)
+        MRCNN,MRCNN_loss = train_model(mrcnn_loader,mrcnn,500,0.001,L)
         models.append(MRCNN)
     return models
 
@@ -432,9 +432,9 @@ def get_model_list(G,label,L_list,batch_size=32,num_epochs=500,lr=0.001):
     models=[]
     for L in L_list:
         data = Embeddings.main1(G,L)
-        train_loader = Utils.Get_DataLoader1(data,label,batch_size,L)
+        train_loader = Get_DataLoader1(data,label,batch_size,L)
         model = Models.CNN1(L)
-        model,_ = Utils.train_model(train_loader,model,num_epochs,lr,L)
+        model,_ = train_model(train_loader,model,num_epochs,lr,L)
         models.append(model)
     return models
 
