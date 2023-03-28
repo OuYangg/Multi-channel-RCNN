@@ -192,10 +192,11 @@ def compare_tau1(G,L,sir_list,community,MRCNN,p):
     return:
         tau_list:在不同beta情况下的tau值
     """
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     num_nodes = int(p*G.number_of_nodes()) # 要对比的节点数量
     nodes = list(G.nodes())
     mrcnn_data = to_torch2(Embeddings.main1(G,L,community),L)
-    mrcnn_pred = [i for i,j in sorted(dict(zip(nodes,MRCNN(mrcnn_data))).items(),key=lambda x:x[1],reverse=True)]
+    mrcnn_pred = [i for i,j in sorted(dict(zip(nodes,MRCNN(mrcnn_data.to(device)))).items(),key=lambda x:x[1],reverse=True)]
     mrcnn_rank = np.array(nodesRank(mrcnn_pred),dtype=float)
     
     MRCNN_tau_list = [] 
