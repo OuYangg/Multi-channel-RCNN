@@ -179,7 +179,7 @@ def Taus(G,L_list,label,models):
         taus.append(r_tau)
     return taus
 
-def compare_tau1(G,L,sir_list,community,MRCNN):
+def compare_tau1(G,L,sir_list,community,MRCNN,p):
     """使用肯德尔相关系数对比不同方法
     Parameters:
         G:目标网络
